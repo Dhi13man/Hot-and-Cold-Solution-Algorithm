@@ -22,11 +22,12 @@ class Game:
 
         # Loss state
         if len(self.guesses) > self.play_limit:
+            self.guesses.remove(guess)
             print('Game over. Sorry you lost. The number was {}'.format(self.num))  # for user to see
             return 0  # for algorithm to see
 
         # Win state
-        elif guess == self.num:
+        if guess == self.num:
             print('\nCONGRATULATIONS, YOU GUESSED IT IN ONLY {} GUESSES!!'.format(len(self.guesses)))
             print("Guesses were: " + str(self.guesses))
             return 1  # for algorithm to see
@@ -54,11 +55,14 @@ class UserSolve:
         self.ask_user(x)
 
     def ask_user(self, game_obj):
-        inp = int(input("The game thinks of a number between " + str(game_obj.ll) + " and " + str(game_obj.ul)
-                        + "\nWhat is your guess?\n"))
-        # Recursively call itself if Game is not over so user can input his values
-        if game_obj.check(inp) not in [0, 1]:
-            self.ask_user(game_obj)
+        if len(game_obj.guesses) < game_obj.play_limit:
+            inp = int(input("The game thinks of a number between " + str(game_obj.ll) + " and " + str(game_obj.ul)
+                            + "\nWhat is your guess?\n"))
+            # Recursively call itself if Game is not over so user can input his values
+            if game_obj.check(inp) not in [0, 1]:
+                self.ask_user(game_obj)
+        elif len(game_obj.guesses) == game_obj.play_limit:
+            game_obj.check(0)
 
 
 class AlgorithmSolve:
@@ -66,26 +70,48 @@ class AlgorithmSolve:
         self.lower_try = x.ll
         self.upper_try = x.ul
         self.method = ch
-        self.detection_range = int((x.ul - x.ll + 1) / 10)
+        self.detection_range = ((x.ul - x.ll + 1) / 10)
         self.mid = int((self.lower_try + self.upper_try) / 2)
-        self.algorithm_trial(x, 'none')
+        self.guess_list = []
+        self.has_won = 1
+        self.error_Percentage = 0
         self.temp = 0
+        self.algorithm_trial(x, 'none')
 
     def get_response_from_game(self, game):
         # code for step by step display
         if self.method == 1 and (self.lower_try != game.ll or self.upper_try != game.ul):
             input('\n')
+
         # Start
-        print("\nThe game thinks of a number between " + str(game.ll) + " and " + str(game.ul)
-              + "\nWhat is your guess?")
+        if len(game.guesses) < game.play_limit:
+            print("\nThe game thinks of a number between " + str(game.ll) + " and " + str(game.ul)
+                  + "\nWhat is your guess?")
         self.mid = int((self.lower_try + self.upper_try) / 2)
-        print("Algorithm guesses " + str(self.mid))
+
+        if self.mid in self.guess_list and len(self.guess_list) >= 4:
+            t1, t2 = self.guess_list[-1], self.guess_list[-2]
+            x = [self.guess_list[-3], self.guess_list[-4]]
+            # If guesses have been repeating, reset guesses
+            if t1 in x and t2 in x:
+                self.mid = game.ll
+                while self.mid in self.guess_list:
+                    self.mid = self.mid + 1
+                self.lower_try = self.mid
+                self.mid = self.lower_try + self.upper_try
+
+        if len(game.guesses) < game.play_limit:
+            print("Algorithm guesses " + str(self.mid))
+        self.guess_list.append(self.mid)
         return game.check(self.mid)
 
     def algorithm_lost(self, game_obj):
         print("\nAlgorithm loses. Pseudo randomness was too powerful.")
-        print("The difference was:\t" + str(abs(self.mid - game_obj.num)))
-        print("Error:\t%lf" % (abs(self.mid - game_obj.num) / (self.detection_range * 10) * 100) + " %")
+        difference = game_obj.guesses[-1] - game_obj.num
+        print("The difference was:\t" + str(abs(difference)))
+        print("Error:\t%lf" % (abs(difference) / (self.detection_range * 10) * 100) + " %")
+        self.has_won = 0
+        self.error_Percentage = abs(difference) / (self.detection_range * 10) * 100
 
     # When first try leads to Warm output
     def warm_algorithm(self, game_obj, last_change):
@@ -94,10 +120,10 @@ class AlgorithmSolve:
         # End conditions:
         if game_response == 1:
             print("\nAlgorithm wins")
-            return
+            return 1
         elif game_response == 0:
             self.algorithm_lost(game_obj)
-            return
+            return 0
 
         # Mid game checks
         elif game_response == -10:
@@ -127,21 +153,22 @@ class AlgorithmSolve:
                 self.lower_try = self.mid
                 self.warm_algorithm(game_obj, 'lower')
 
+    # Responsible for actually trying out different values based on algorithm
     def algorithm_trial(self, game_obj, last_change):
         game_response = self.get_response_from_game(game_obj)
 
         # End conditions:
         if game_response == 1:
             print("\nAlgorithm wins")
-            return
+            return 1
         elif game_response == 0:
             self.algorithm_lost(game_obj)
-            return
+            return 0
 
         # First check:
         elif game_response == 5:  # Luckiest case. Decrease sample size to WARM zone(detection range)
-            self.temp = self.mid + self.detection_range * 2
-            self.lower_try = self.mid - self.detection_range * 2
+            self.temp = self.mid + int(self.detection_range) * 2
+            self.lower_try = self.mid - int(self.detection_range) * 2
             self.upper_try = self.mid
             self.warm_algorithm(game_obj, 'upper')
         elif game_response == -5:
@@ -176,8 +203,8 @@ class AlgorithmSolve:
 
 # Main code starts here
 if __name__ == '__main__':
-    upper = 100
-    lower = 0
+    upper = 1000
+    lower = 1
     chances = 10
     g1 = Game(lower, upper, chances)  # Upper Limit, Lower Limit of random range, how many chances given to player
     choice = int(input("Enter  0 for Auto-solve, 1 to attempt on your own: "))
@@ -185,5 +212,6 @@ if __name__ == '__main__':
         u = UserSolve(g1)
         choice = int(input("Enter  0 for giving Algorithm a chance to solve, 1 to exit: "))
     if choice == 0:
+        g1.guesses.clear()
         choice = int(input("\nEnter 0 for Instant solution, 1 for Step by step solution: "))
         a = AlgorithmSolve(g1, choice)

@@ -1,7 +1,7 @@
 # Hot-and-Cold-Solution-Algorithm
 
 
-This is a simple Hot and Cold guessing game for any customisable range, and a recursion-based, binary splitting algorithm that can guess the number, even for extremely high ranges, perfectly in low number of chances, and with only up to 2% error even when number of chances are not adequate.
+This is a simple Hot and Cold guessing game for any customisable range, and a recursion-based, binary splitting algorithm that can guess the number, even for extremely high ranges, perfectly in low number of chances, and with only up to 5% error even when number of chances are not adequate.
 
 The game generates a random Target number in the given range, completely unknown to the player/algorithm. Their task is then to guess it based on the feedback(Warmer, Colder) they get from the game, upon making random guesses. The number of total guesses given to achieve this are limited.
 
