@@ -14,6 +14,16 @@ The game generates a random Target number in the given range, completely unknown
 4. Whether the human or whether the algorithm tries to guess the Target number
 5. If algorithm is guessing the number, then whether the solution should be shown step by step, or instantaneously
 
+----
+
+Script HnC_Algo_Statistics.py visualizes:
+---
+1. Mean run-time of the Algorithm for various Ranges and number of guesses.
+2. Mean error(if any) of the Algorithm for various Ranges and number of guesses.
+3. Percentage of wins that the Program has for any Range and number of guesses.
+
+All pre-existing statistical data in repository is for 100000000 range and
+10, 100 and 1000 guess tries allotted to the algorithm respectively.
 
 # Potential practical usage:
 The AlgorithmSolve() method can be used with a Game class object to make more intelligent guesses, for lower time consumption in practical situations.

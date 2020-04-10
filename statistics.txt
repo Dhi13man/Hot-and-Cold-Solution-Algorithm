@@ -1,0 +1,21 @@
+For 10 tries:
+
+Mean Run-Time for algorithm = 0.0003547109999999996 secs
+Win percentage = 0.01%
+Mean Error Percentage = 2.829261730507695%
+
+
+For 100 tries:
+
+Mean Run-Time for algorithm = 0.002476426020000016 secs
+Win percentage = 93.60000000000001%
+Mean Error Percentage = 0.06371061130350633%
+
+
+For 1000 tries:
+
+Mean Run-Time for algorithm = 0.0026253614199999364 secs
+Win percentage = 100.0%
+Mean Error Percentage = 0.0%
+
+
