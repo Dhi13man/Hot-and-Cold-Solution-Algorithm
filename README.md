@@ -16,14 +16,31 @@ The game generates a random Target number in the given range, completely unknown
 
 ----
 
-Script HnC_Algo_Statistics.py visualizes:
----
+# Script HnC_Algo_Statistics.py visualizes:
 1. Mean run-time of the Algorithm for various Ranges and number of guesses.
 2. Mean error(if any) of the Algorithm for various Ranges and number of guesses.
 3. Percentage of wins that the Program has for any Range and number of guesses.
+5. Average minimum guesses needed to win (calculated that average number of guesses needed to always win is 97.46426 for test cases ranging from 1 to 2 to 1 to 10^9)
 
-All pre-existing statistical data in repository is for 100000000 range and
+All  other pre-existing statistical data in repository is for 1 to 10^8 range and
 10, 100 and 1000 guess tries allotted to the algorithm respectively.
+
+1. For 10 tries:
+Mean Run-Time for algorithm = 0.0003547109999999996 secs
+Win percentage = 0.01%
+Mean Error Percentage when loss occurs = 2.829261730507695%
+
+2. For 100 tries:
+Mean Run-Time for algorithm = 0.002476426020000016 secs
+Win percentage = 93.60000000000001%
+Mean Error Percentage when loss occurs = 0.06371061130350633%
+
+3. For 1000 tries:
+Mean Run-Time for algorithm = 0.0026253614199999364 secs
+Win percentage = 100.0%
+Mean Error Percentage when loss occurs = 0.0%
+
+----
 
 # Potential practical usage:
 The AlgorithmSolve() method can be used with a Game class object to make more intelligent guesses, for lower time consumption in practical situations.
