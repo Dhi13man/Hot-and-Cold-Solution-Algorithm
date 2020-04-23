@@ -26,19 +26,19 @@ All  other pre-existing statistical data in repository is for 1 to 10^8 range an
 10, 100 and 1000 guess tries allotted to the algorithm respectively.
 
 ###### **1. For 10 tries:**
-a. Mean Run-Time for algorithm = 0.0003547109999999996 secs
-b. Win percentage = 0.01%
-c. Mean Error Percentage when loss occurs = 2.829261730507695%
+> Mean Run-Time for algorithm = 0.0003547109999999996 secs
+> Win percentage = 0.01%
+> Mean Error Percentage when loss occurs = 2.829261730507695%
 
 ###### **2. For 100 tries:**
-a. Mean Run-Time for algorithm = 0.002476426020000016 secs
-b. Win percentage = 93.60000000000001%
-c. Mean Error Percentage when loss occurs = 0.06371061130350633%
+> Mean Run-Time for algorithm = 0.002476426020000016 secs
+> Win percentage = 93.60000000000001%
+> Mean Error Percentage when loss occurs = 0.06371061130350633%
 
 ###### **3. For 1000 tries:**
-a. Mean Run-Time for algorithm = 0.0026253614199999364 secs
-b. Win percentage = 100.0%
-c. Mean Error Percentage when loss occurs = 0.0%
+> Mean Run-Time for algorithm = 0.0026253614199999364 secs
+> Win percentage = 100.0%
+> Mean Error Percentage when loss occurs = 0.0%
 
 ----
 
