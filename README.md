@@ -20,9 +20,9 @@ The game generates a random Target number in the given range, completely unknown
 1. **Mean run-time** of the Algorithm for various Ranges and number of guesses.
 2. **Mean error(if any)** of the Algorithm for various Ranges and number of guesses.
 3. **Percentage of wins** that the Program has for any Range and number of guesses.
-5. **Average minimum guesses needed to win** (calculated that average number of guesses needed to always win is 97.46426 for test cases ranging from 1 to 2 to 1 to 10^9)
+5. **Average minimum guesses needed to win** (calculated that average number of guesses needed to always win is **97.46426** for test cases ranging from **1 to 2** to **1 to 10^9**)
 
-All  other pre-existing statistical data in repository is for 1 to 10^8 range and
+All other pre-existing statistical data in repository is for ranges from ***1 to 2** to **1 to 10^8** and
 10, 100 and 1000 guess tries allotted to the algorithm respectively.
 
 ###### **1. For 10 tries:**
