@@ -9,7 +9,7 @@ class Game:
         print('Guess a number!!!!!\n')
         self.play_limit = p_limit
         self.ll, self.ul = l_limit, u_limit
-        self.num = randint(l_limit, u_limit)
+        self.target_number = randint(l_limit, u_limit)
         self.guesses = []
 
     def check(self, guess):
@@ -23,17 +23,17 @@ class Game:
         # Loss state
         if len(self.guesses) > self.play_limit:
             self.guesses.remove(guess)
-            print('Game over. Sorry you lost. The number was {}'.format(self.num))  # for user to see
+            print('Game over. Sorry you lost. The number was {}'.format(self.target_number))  # for user to see
             return 0  # for algorithm to see
 
         # Win state
-        if guess == self.num:
+        if guess == self.target_number:
             print('\nCONGRATULATIONS, YOU GUESSED IT IN ONLY {} GUESSES!!'.format(len(self.guesses)))
             print("Guesses were: " + str(self.guesses))
             return 1  # for algorithm to see
 
         if len(self.guesses) >= 2:
-            if abs(self.num - guess) < abs(self.num - self.guesses[-2]):
+            if abs(self.target_number - guess) < abs(self.target_number - self.guesses[-2]):
                 print('WARMER!')  # for user to see
                 return +10  # for algorithm to see
             else:
@@ -42,7 +42,7 @@ class Game:
         # First guess condition
         else:
             # WARM range is 10 for 100 elements, 100 for 1000 elements and so on
-            if abs(self.num - guess) <= int((self.ul - self.ll + 1) / 10):
+            if abs(self.target_number - guess) <= int((self.ul - self.ll + 1) / 10):
                 print('WARM!')  # for user to see
                 return +5  # for algorithm to see
             else:
@@ -66,10 +66,10 @@ class UserSolve:
 
 
 class AlgorithmSolve:
-    def __init__(self, x, ch):
+    def __init__(self, x, instant_or_step_by_step):
         self.lower_try = x.ll
         self.upper_try = x.ul
-        self.method = ch
+        self.method = instant_or_step_by_step
         self.detection_range = ((x.ul - x.ll + 1) / 10)
         self.mid = int((self.lower_try + self.upper_try) / 2)
         self.guess_list = []
@@ -89,6 +89,7 @@ class AlgorithmSolve:
                   + "\nWhat is your guess?")
         self.mid = int((self.lower_try + self.upper_try) / 2)
 
+        # Repeting guesses contingency
         if self.mid in self.guess_list and len(self.guess_list) >= 4:
             t1, t2 = self.guess_list[-1], self.guess_list[-2]
             x = [self.guess_list[-3], self.guess_list[-4]]
@@ -107,7 +108,7 @@ class AlgorithmSolve:
 
     def algorithm_lost(self, game_obj):
         print("\nAlgorithm loses. Pseudo randomness was too powerful.")
-        difference = game_obj.guesses[-1] - game_obj.num
+        difference = game_obj.guesses[-1] - game_obj.target_number
         print("The difference was:\t" + str(abs(difference)))
         print("Error:\t%lf" % (abs(difference) / (self.detection_range * 10) * 100) + " %")
         self.has_won = 0

@@ -18,4 +18,6 @@ Mean Run-Time for algorithm = 0.0026253614199999364 secs
 Win percentage = 100.0%
 Mean Error Percentage = 0.0%
 
+***************************************************
+Average minimum guesses needed to win = 97.46426
 
