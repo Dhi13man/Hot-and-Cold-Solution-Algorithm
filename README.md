@@ -44,8 +44,16 @@ All other pre-existing statistical data in repository is for ranges from ***1 to
 
 ----
 
-# Potential practical usage:
+## Potential practical usage:
 The AlgorithmSolve() method can be used with a Game class object to make more intelligent guesses, for lower time consumption in practical situations.
 For this purpose, the (Warmer/Colder) feedback from the Game class object can be programmed to be provided based on response data from the real life environment. 
 
 This will drastically reduce the number of potential guesses required to find a hidden target, even when the total range to be guessed from reaches the billions.
+
+## Contributing
+
+See [CONTRIBUTING.md](CONTRIBUTING.md).
+
+## License
+
+See [LICENSE](LICENSE).
